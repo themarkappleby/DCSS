@@ -1,0 +1,10 @@
+/* Apply these styles with the User CSS Chrome extension */
+/* https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb?hl=en */
+
+.simplebar-content canvas,
+.describe-item canvas,
+.describe-monster canvas,
+.menu_contents_inner canvas {
+  width: 48px !important;
+  height: 48px !important;
+}

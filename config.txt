@@ -917,56 +917,41 @@ menu += $awesome:manual
 # black, blue, brown, cyan, darkgrey, green, lightblue, lightcyan, lightgreen,
 # lightgrey, lightmagenta, lightred, magenta, red, yellow, white
 
-# Variables for message highlighting
-$danger   := lightred
-$item_dmg := red
-$warning  := yellow
-$boring   := darkgrey
-$negative := brown
-$good     := lightblue
-$positive := green
-$verypositive := lightgreen
-$awesome := lightmagenta
-$interface := cyan
-$takesaction := blue
-$godaction := magenta
-$mp := lightcyan
-
-#Channels
-#channel.plain =
-channel.prompt = $interface
-channel.god = $godaction
-channel.pray = $godaction
-channel.duration = $warning
-channel.danger = $danger
-channel.food = $warning
-channel.warning = $danger
-channel.recovery = $verypositive
-channel.talk = $warning
-channel.talk_visual = $boring
-channel.timed_portal = $warning
-#channel.sound =
-channel.intrinsic_gain = $awesome
-#channel.mutation = --either danger/warning/awesome
-channel.monster_spell = $takesaction
-#channel.monster_enchant = --either danger/warning/boring/takesaction
-channel.friend_spell = $takesaction
-#channel.friend_enchant = --either danger/warning/boring/takesaction
-channel.friend_action = $takesaction
-channel.monster_damage = mute
-#monster_target = --currently unused by the game
-#channel.banishment = --either positive or danger
-channel.rotten_meat = $boring
-channel.equipment = $interface
-#channel.floor =
-channel.multiturn = $boring
-#channel.examine =
-#channel.examine_filter =
-#channel.diagnostics =
-#channel.error =
-#channel.tutorial =
-channel.orb = $awesome
-#channel.hell_effect = -either danger/warning/boring
+channel.plain = darkgrey
+channel.prompt = plain
+channel.god = plain
+channel.duration = plain
+channel.danger = plain
+channel.food = plain
+channel.warning = plain
+channel.recovery = plain
+channel.talk = plain
+channel.talk_visual = plain
+channel.timed_portal = plain
+channel.sound = plain
+channel.intrinsic_gain = plain
+channel.mutation = plain
+channel.monster_spell = plain
+channel.monster_enchant = plain
+channel.monster_warning = plain
+channel.friend_spell = plain
+channel.friend_enchant = plain
+channel.friend_action = plain
+channel.monster_damage = plain
+channel.monster_target = plain
+channel.banishment = plain
+channel.rotten_meat = plain
+channel.equipment = plain
+channel.floor = plain
+channel.multiturn = plain
+channel.examine = plain
+channel.examine_filter = plain
+channel.diagnostic = plain
+channel.error = plain
+channel.tutorial = plain
+channel.orb = plain
+channel.hell_effect = plain
+channel.dgl_message  = plain
 
 # Set Alias
 msc := message_colour
@@ -992,7 +977,7 @@ rest_wait_both = true
 tile_viewport_scale = 3.0
 tile_map_scale = 1.0
 tile_font_crt_size  = 24
-tile_font_msg_size  = 28
+tile_font_msg_size  = 16
 tile_font_stat_size = 18
 msg_min_hei
 

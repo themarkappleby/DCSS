@@ -1,61 +1,4 @@
-# ======================
-# Essentials
-# ======================
-confirm_butcher = never
-show_more = false
-default_manual_training = true
-tile_web_mouse_control = false
-explore_auto_rest = true
-
-# ======================
-# UI Scale
-# ======================
-tile_viewport_scale = 3.0
-tile_map_scale = 1.0
-tile_font_crt_size  = 24
-tile_font_msg_size  = 14
-tile_font_stat_size = 18
-msg_min_height = 5
-
-# ======================
-# Macros
-# Enter = \{13}
-# ======================
-macros += M ` x=v
-macros += M z Z*
-macros += M 1 za
-macros += M 2 zb
-macros += M 3 zc
-macros += M 4 zd
-
 # Ref: https://crawl.project357.org/rc-files/0.24/Ultraviolent4.rc
-#############
-# Interface #
-#############
-
-autofight_throw = false
-autofight_throw_nomove = false
-
-show_travel_trail = true
-travel_delay = -1
-rest_delay = -1
-auto_sacrifice = true
-sacrifice_before_explore = true
-
-show_game_time = true
-
-warn_hatches = true
-jewellery_prompt = false
-equip_unequip = true
-allow_self_target = never
-confirm_butcher = never
-easy_eat_gourmand = true
-sort_menus = true : equipped, identified, basename, qualname, charged
-hp_warning = 50
-
-auto_hide_spells = true
-wall_jump_move = false
-
 #################
 # Lua Functions #
 #################
@@ -782,80 +725,6 @@ msc += mute:This raw flesh tastes terrible
   msc += mute:You hear a.*squelching noise
   msc += mute:You feel a little less hungry
 : end
-
-###############
-# Spell slots #
-###############
-
-spell_slot += Animate Skeleton:u
-spell_slot += Animate Dead:u
-spell_slot += Apportation:c
-spell_slot += Beastly Appendage:a
-spell_slot += Blink:b
-spell_slot += Bolt of Cold:c
-spell_slot += Bolt of Fire:c
-spell_slot += Borgnjor's Vile Clutch:f
-spell_slot += Call Canine Familiar:c
-spell_slot += Call Imp:x
-spell_slot += Cause Fear:f
-spell_slot += Confuse:c
-spell_slot += Confusing Touch:a
-spell_slot += Conjure Flame:d
-spell_slot += Corona:a
-spell_slot += Corpse Rot:d
-spell_slot += Dazzling Spray:s
-spell_slot += Deflect Missiles:r
-spell_slot += Dispel Undead:d
-spell_slot += Ensorcelled Hibernation:x
-spell_slot += Fireball:x
-spell_slot += Flame Tongue:a
-spell_slot += Freeze:a
-spell_slot += Freezing Cloud:d
-spell_slot += Fulminant Prism:z
-# spell_slot += Haste:s
-spell_slot += Ice Form:c
-spell_slot += Infusion:a
-spell_slot += Iskenderun's Battlesphere:i
-spell_slot += Iskenderun's Mystic Blast:x
-spell_slot += Magic Dart:a
-spell_slot += Mephitic Cloud:f
-spell_slot += Olgreb's Toxic Radiance:y
-spell_slot += Orb of Destruction:zZ
-spell_slot += Pain:a
-spell_slot += Passage of Golubria:v
-spell_slot += Passwall:qQ
-# spell_slot += Phase Shift:aA
-spell_slot += Poisonous Vapours:x
-spell_slot += Portal Projectile:d
-spell_slot += Regeneration:e
-# spell_slot += Repel Missiles:r
-spell_slot += Sandblast:a
-spell_slot += Searing Ray:s
-spell_slot += Shock:a
-spell_slot += Shroud of Golubria:q
-spell_slot += Silence:g
-spell_slot += Slow:s
-spell_slot += Song of Slaying:w
-spell_slot += Spectral Weapon:t
-spell_slot += Spider Form:x
-spell_slot += Static Discharge:d
-spell_slot += Sticks to Snakes:s
-spell_slot += Sticky Flame:q
-spell_slot += Sting:a
-spell_slot += Stone Arrow:x
-spell_slot += Sublimation of Blood:Z
-spell_slot += Summon Butterflies:n
-spell_slot += Summon Ice Beast:d
-spell_slot += Summon Lightning Spire:z
-spell_slot += Summon Mana Viper:w
-spell_slot += Summon Small Mammal:a
-spell_slot += Swiftness:s
-spell_slot += Throw Flame:x
-spell_slot += Throw Frost:x
-spell_slot += Throw Icicle:c
-spell_slot += Tukima's Dance:d
-spell_slot += Vampiric Draining:q
-
 
 ###############
 # Item slots #
@@ -3737,3 +3606,37 @@ msc ^= boring:stares at you suspiciously for a moment
 msc += boring:trembles before you
 msc += boring:You feel mildly nauseous
 msc += boring:Multicoloured lights dance around
+
+# ======================
+# Essentials
+# ======================
+confirm_butcher = never
+show_more = false
+default_manual_training = true
+tile_web_mouse_control = false
+explore_auto_rest = true
+easy_eat_chunks = true
+explore_wall_bias = 1
+sort_menus = true
+rest_wait_both = true
+
+# ======================
+# UI Scale
+# ======================
+tile_viewport_scale = 3.0
+tile_map_scale = 1.0
+tile_font_crt_size  = 24
+tile_font_msg_size  = 28
+tile_font_stat_size = 18
+msg_min_hei
+
+# ======================
+# Macros
+# Enter = \{13}
+# ======================
+macros += M ` x=v
+macros += M z Z*
+macros += M 1 za\{13}
+macros += M 2 zb\{13}
+macros += M 3 zc
+macros += M 4 zd

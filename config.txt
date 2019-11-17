@@ -961,12 +961,14 @@ msc =
 # ======================
 # Essentials
 # ======================
+auto_butcher = true
 confirm_butcher = never
+easy_eat_chunks = true
 show_more = false
+easy_confirm = all
 default_manual_training = true
 tile_web_mouse_control = false
 explore_auto_rest = true
-easy_eat_chunks = true
 explore_wall_bias = 1
 sort_menus = true
 rest_wait_both = true

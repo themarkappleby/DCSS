@@ -967,6 +967,7 @@ easy_eat_chunks = true
 show_more = false
 easy_confirm = all
 default_manual_training = true
+default_show_all_skills = true
 tile_web_mouse_control = false
 explore_auto_rest = true
 explore_wall_bias = 1

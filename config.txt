@@ -775,7 +775,7 @@ ability_slot += corrupt:Y
 # Set Alias
 menu := menu_colour
 # Clear defaults
-menu =
+menu = darkgrey
 
 # Variables (Worst to Best)
 # $evil := red
@@ -806,9 +806,9 @@ $warning := red
 $boring := darkgrey
 $decent := darkgrey
 $good := darkgrey
-$positive := white
-$verypositive := white
-$awesome := white
+$positive := darkgrey
+$verypositive := darkgrey
+$awesome := darkgrey
 
 # Unusual Variables
 $mp := darkgrey

@@ -803,17 +803,17 @@ $evil := red
 $negative := red
 $danger := red
 $warning := red
-$boring := white
-$decent := white
-$good := white
-$positive := yellow
-$verypositive := yellow
-$awesome := yellow
+$boring := darkgrey
+$decent := darkgrey
+$good := darkgrey
+$positive := white
+$verypositive := white
+$awesome := white
 
 # Unusual Variables
-$mp := white
-$equipped := white
-$mutation := white
+$mp := darkgrey
+$equipped := darkgrey
+$mutation := darkgrey
 
 ##################
 # Basic Settings #
@@ -880,7 +880,7 @@ menu += $mutation:mutagenic
 
 # Potions
 menu += $danger:potions? of berserk
-menu += $decent:potions? of (flight|lignification|restore)
+menu += $decent:potions? of (ambrosia|flight|lignification|restore)
 menu += $good:potions? of (agility|brilliance|invisibility|might|resistance)
 menu += $positive:potions? of curing
 menu += $verypositive:potions? of (haste|heal wounds)
@@ -915,8 +915,8 @@ menu += $mp:staff of (energy|Wucad Mu)
 menu += $positive:[^r]staff of
 
 # Wands
-menu += $boring:wand of (flame|frost|magic darts|random effects)
-menu += $decent:wand of (confusion|enslavement|paralysis|polymorph|slowing)
+menu += $boring:wand of (flame|frost|iceblast|magic darts|random effects)
+menu += $decent:wand of (acid|confusion|enslavement|paralysis|polymorph|slowing)
 menu += $good:wand of (cold|digging|disintegration|draining)
 menu += $good:wand of (fire|fireball|invisibility|lightning)
 menu += $positive:wand of hasting
@@ -926,6 +926,7 @@ menu += $awesome:wand of teleportation
 # Other
 menu += $negative:shield of the gong
 menu += $good:throwing net
+menu += $good:sling bullets
 menu += $awesome:.*misc.*rune( of Zot)?
 menu += $awesome:.*orb.*Zot
 menu += $awesome:manual

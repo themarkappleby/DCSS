@@ -778,21 +778,42 @@ menu := menu_colour
 menu =
 
 # Variables (Worst to Best)
+# $evil := red
+# $negative := brown
+# $danger := lightred
+# $warning := yellow
+# $boring := darkgrey
+# $decent := white
+# $good := lightblue
+# $positive := green
+# $verypositive := lightgreen
+# $awesome := lightmagenta
+
+# Unusual Variables
+# $mp := lightcyan
+# $equipped := cyan
+# $mutation := magenta
+
+#########################
+# Custom Aliases and Variables #
+#########################
+
+# Variables (Worst to Best)
 $evil := red
-$negative := brown
-$danger := lightred
-$warning := yellow
-$boring := darkgrey
+$negative := red
+$danger := red
+$warning := red
+$boring := white
 $decent := white
-$good := lightblue
-$positive := green
-$verypositive := lightgreen
+$good := white
+$positive := white
+$verypositive := lightmagenta
 $awesome := lightmagenta
 
 # Unusual Variables
-$mp := lightcyan
-$equipped := cyan
-$mutation := magenta
+$mp := white
+$equipped := white
+$mutation := white
 
 ##################
 # Basic Settings #

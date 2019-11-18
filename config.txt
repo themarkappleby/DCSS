@@ -806,9 +806,9 @@ $warning := red
 $boring := white
 $decent := white
 $good := white
-$positive := magenta
-$verypositive := magenta
-$awesome := magenta
+$positive := yellow
+$verypositive := yellow
+$awesome := yellow
 
 # Unusual Variables
 $mp := white

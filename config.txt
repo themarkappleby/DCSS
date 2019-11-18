@@ -760,6 +760,8 @@ ability_slot += corrupt:Y
 # Menu & Message Colours
 # ======================
 message_colour = lightgrey:.*
+message_colour ^= green:you kill the 
+message_colour ^= red:LOW HITPOINT WARNING
 
 menu_colour = lightgrey:.*
 menu_colour ^= darkgrey:unidentified

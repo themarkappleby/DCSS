@@ -759,13 +759,122 @@ ability_slot += corrupt:Y
 # ======================
 # Menu & Message Colours
 # ======================
-message_colour = lightgrey:.*
-message_colour ^= green:you kill the 
-message_colour ^= red:LOW HITPOINT WARNING
+$normal := lightgrey
+$unidentified := darkgrey
+$bad := lightred
+$good := green
+$branded := lightgreen
+$artefact:= lightmagenta
 
-menu_colour = lightgrey:.*
-menu_colour ^= darkgrey:unidentified
-menu_colour ^= red: cursed
+message_colour = $normal:.*
+message_colour ^= $good:you kill the
+message_colour ^= $bad:LOW HITPOINT WARNING
+
+menu_colour =$normal:.*
+menu_colour ^= $unidentified:unidentified.*(potion|scroll)
+
+# Enchanted Items
+menu_colour ^= $good: \+[1-9]
+
+# Brands
+menu_colour ^= $branded: of antimagic
+menu_colour ^= $branded: of chaos
+menu_colour ^= $branded: of chopping
+menu_colour ^= $branded: of crushing
+menu_colour ^= $branded: of disruption
+menu_colour ^= $branded: of distortion
+menu_colour ^= $branded: of dragon slaying
+menu_colour ^= $branded: of draining
+menu_colour ^= $branded: of electrocution
+menu_colour ^= $branded: of flaming
+menu_colour ^= $branded: of freezing
+menu_colour ^= $branded: of holy wrath
+menu_colour ^= $branded: of pain
+menu_colour ^= $branded: of piercing
+menu_colour ^= $branded: of protection
+menu_colour ^= $branded: of reaping
+menu_colour ^= $branded: of slashing
+menu_colour ^= $branded: of speed
+menu_colour ^= $branded: of vampiricism
+menu_colour ^= $branded: of velocity
+menu_colour ^= $branded: of venom
+
+# Egos
+menu_colour ^= $branded: of archery
+menu_colour ^= $branded: of the Archmagi
+menu_colour ^= $branded: of cold resistance
+menu_colour ^= $branded: of dexterity
+menu_colour ^= $branded: of fire resistance
+menu_colour ^= $branded: of flight
+menu_colour ^= $branded: of intelligence
+menu_colour ^= $branded: of invisibility
+menu_colour ^= $branded: of magic resistance
+menu_colour ^= $branded: of poison resistance
+menu_colour ^= $branded: of ponderousness
+menu_colour ^= $branded: of positive energy
+menu_colour ^= $branded: of protection
+menu_colour ^= $branded: of reflection
+menu_colour ^= $branded: of resistance
+menu_colour ^= $branded: of running
+menu_colour ^= $branded: of see invisible
+menu_colour ^= $branded: of spirit shield
+menu_colour ^= $branded: of stealth
+menu_colour ^= $branded: of strength
+
+# Unidentified Egos
+menu_colour ^= $branded:^unidentified .*weapon.*(runed|glowing)
+menu_colour ^= $branded:^unidentified .*armour.*(runed|glowing|embroidered|shiny|dyed)
+
+# Wands, Jewellery, and Staves
+menu_colour ^=$branded:(wand|jewellery|magical staff)
+
+# Potions
+menu_colour ^= $normal:potion[s]? of agility
+menu_colour ^= $bad:potion[s]? of ambrosia
+menu_colour ^= $normal:potion[s]? of berserk rage
+menu_colour ^= $normal:potion[s]? of blood
+menu_colour ^= $normal:potion[s]? of brilliance
+menu_colour ^= $normal:potion[s]? of cancellation
+menu_colour ^= $good:potion[s]? of curing
+menu_colour ^= $bad:potion[s]? of degeneration
+menu_colour ^= $good:potion[s]? of experience
+menu_colour ^= $normal:potion[s]? of flight
+menu_colour ^= $normal:potion[s]? of haste
+menu_colour ^= $good:potion[s]? of heal wounds
+menu_colour ^= $good:potion[s]? of invisibility
+menu_colour ^= $normal:potion[s]? of lignification
+menu_colour ^= $normal:potion[s]? of magic
+menu_colour ^= $normal:potion[s]? of might
+menu_colour ^= $bad:potion[s]? of mutation
+menu_colour ^= $good:potion[s]? of resistance
+
+# Scrolls
+menu_colour ^= $good:scroll[s]? of acquirement
+menu_colour ^= $bad:scroll[s]? of amnesia
+menu_colour ^= $good:scroll[s]? of blinking
+menu_colour ^= $normal:scroll[s]? of brand weapon
+menu_colour ^= $good:scroll[s]? of enchant armour
+menu_colour ^= $good:scroll[s]? of enchant weapon
+menu_colour ^= $normal:scroll[s]? of fear
+menu_colour ^= $normal:scroll[s]? of fog
+menu_colour ^= $normal:scroll[s]? of holy word
+menu_colour ^= $good:scroll[s]? of identify
+menu_colour ^= $normal:scroll[s]? of immolation
+menu_colour ^= $normal:scroll[s]? of magic mapping
+menu_colour ^= $bad:scroll[s]? of noise
+menu_colour ^= $bad:scroll[s]? of random uselessness
+menu_colour ^= $good:scroll[s]? of remove curse
+menu_colour ^= $normal:scroll[s]? of silence
+menu_colour ^= $normal:scroll[s]? of summoning
+menu_colour ^= $good:scroll[s]? of teleportation
+menu_colour ^= $bad:scroll[s]? of torment
+menu_colour ^= $normal:scroll[s]? of vulnerability
+
+# Artefacts
+menu_colour ^= $artefact: artefact
+
+# Cursed Items
+menu_colour ^= $bad: cursed
 
 # ======================
 # Essentials
@@ -791,7 +900,7 @@ tile_map_scale = 1.0
 tile_font_crt_size  = 24
 tile_font_msg_size  = 16
 tile_font_stat_size = 18
-msg_min_hei
+msg_min_height = 5
 
 # ======================
 # Macros

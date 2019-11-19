@@ -632,43 +632,6 @@ more += god:
 : end
 
 ####################
-# Autoinscriptions #
-####################
-
-ai := autoinscribe
-
-ai += (vampiric):!w
-ai += (bad|dangerous)_item.*potion:!q
-ai += (bad|dangerous)_item.*scroll:!r
-ai += of faith:!P
-ai += rod of:!a
-ai += lightning rod:!a
-ai += [^r]staff of (conj|energy|power|wizardry):!a
-ai += manual of:!d
-ai += dispersal:!f
-ai += tome of Destruction:!d
-ai += throwing net:!f
-ai += curare:!f
-ai += needle of (frenzy|paralysis|sleeping|confusion):!f
-ai += ( ration):!d
-ai += figurine:!*
-
-: if you.god() ~= "Lugonu" then
-ai += (distortion):!w
-:end
-
-ai += of identify:@r1
-ai += remove curse:@r2
-ai += curing:@q1
-ai += potions? of heal wounds:@q2
-ai += wand of heal wounds:@v2
-ai += wand of hasting:@v3
-ai += potions? of haste:@q3
-ai += scrolls? of teleportation:@r4
-ai += wand of teleportation:@v4
-ai += potions? of blood:@q0
-
-####################
 # Mute some messages #
 ####################
 
@@ -726,154 +689,86 @@ msc += mute:This raw flesh tastes terrible
   msc += mute:You feel a little less hungry
 : end
 
-###############
-# Item slots #
-###############
+# =======================
+# Autoinscriptions
+# =======================
+ai := autoinscribe
 
-item_slot += wand of teleportation:g
-item_slot += wand of hasting:s
-item_slot += wand of heal wounds:e
-item_slot += wand of digging:v
-item_slot += wand of disintegration:c
-item_slot += wand of confusion:y
-item_slot += wand of paralysis:u
-item_slot += wand of iceblast:d
-item_slot += wand of acid:x
-item_slot += wand of lightning:f
-item_slot += wand of flame:t
+ai += (vampiric):!w
+ai += (bad|dangerous)_item.*potion:!q
+ai += (bad|dangerous)_item.*scroll:!r
+ai += of faith:!P
+ai += rod of:!a
+ai += lightning rod:!a
+ai += [^r]staff of (conj|energy|power|wizardry):!a
+ai += manual of:!d
+ai += dispersal:!f
+ai += tome of Destruction:!d
+ai += throwing net:!f
+ai += curare:!f
+ai += needle of (frenzy|paralysis|sleeping|confusion):!f
+ai += ( ration):!d
+ai += figurine:!*
 
-item_slot += ring of see invisible:z
-item_slot += ring of protection from magic:l
-item_slot += ring of protection from fire:i
-item_slot += ring of protection from cold:o
+: if you.god() ~= "Lugonu" then
+ai += (distortion):!w
+:end
 
+# =======================
+# Item Slots
+# =======================
 item_slot += ration:e
-item_slot += potion of blood:q
-item_slot += poison needle: Q
+item_slot += potion of curing:c
+item_slot += potion of heal wounds:h
+item_slot += scroll of blinking:b
+item_slot += scroll of identify:i
+item_slot += scroll of remove curse:r
+item_slot += scroll of teleportation:t
 
-#################
-# Ability slots #
-#################
-ability_slot += corrupt:Y
-
-# ======================
-# Menu & Message Colours
-# ======================
+# =======================
+# Message & Menus Colours
+# =======================
 $normal := lightgrey
-$unidentified := darkgrey
-$bad := lightred
 $good := green
-$branded := lightgreen
-$artefact:= lightmagenta
+$bad := lightred
+$unidentified := darkgrey
+$artefact:= lightcyan
 
+# --- Messages ---
 message_colour = $normal:.*
 message_colour ^= $good:you kill the
 message_colour ^= $bad:LOW HITPOINT WARNING
 
+# --- Menus ---
 menu_colour =$normal:.*
+
+# --- Potions & Scrolls ---
 menu_colour ^= $unidentified:unidentified.*(potion|scroll)
 
-# Enchanted Items
+# --- Weapons & Armour ---
 menu_colour ^= $good: \+[1-9]
+menu_colour ^= $good:(weapon|armour).* of
+menu_colour ^= $normal:\+0 pair of gloves
+menu_colour ^= $good:^unidentified .*(weapon|armour).*(runed|glowing|embroidered|shiny|dyed)
 
-# Brands
-menu_colour ^= $branded: of antimagic
-menu_colour ^= $branded: of chaos
-menu_colour ^= $branded: of chopping
-menu_colour ^= $branded: of crushing
-menu_colour ^= $branded: of disruption
-menu_colour ^= $branded: of distortion
-menu_colour ^= $branded: of dragon slaying
-menu_colour ^= $branded: of draining
-menu_colour ^= $branded: of electrocution
-menu_colour ^= $branded: of flaming
-menu_colour ^= $branded: of freezing
-menu_colour ^= $branded: of holy wrath
-menu_colour ^= $branded: of pain
-menu_colour ^= $branded: of piercing
-menu_colour ^= $branded: of protection
-menu_colour ^= $branded: of reaping
-menu_colour ^= $branded: of slashing
-menu_colour ^= $branded: of speed
-menu_colour ^= $branded: of vampiricism
-menu_colour ^= $branded: of velocity
-menu_colour ^= $branded: of venom
+# --- Wands, Jewellery, & Staves ---
+menu_colour ^=$good:(wand|jewellery|magical staff)
 
-# Egos
-menu_colour ^= $branded: of archery
-menu_colour ^= $branded: of the Archmagi
-menu_colour ^= $branded: of cold resistance
-menu_colour ^= $branded: of dexterity
-menu_colour ^= $branded: of fire resistance
-menu_colour ^= $branded: of flight
-menu_colour ^= $branded: of intelligence
-menu_colour ^= $branded: of invisibility
-menu_colour ^= $branded: of magic resistance
-menu_colour ^= $branded: of poison resistance
-menu_colour ^= $branded: of ponderousness
-menu_colour ^= $branded: of positive energy
-menu_colour ^= $branded: of protection
-menu_colour ^= $branded: of reflection
-menu_colour ^= $branded: of resistance
-menu_colour ^= $branded: of running
-menu_colour ^= $branded: of see invisible
-menu_colour ^= $branded: of spirit shield
-menu_colour ^= $branded: of stealth
-menu_colour ^= $branded: of strength
-
-# Unidentified Egos
-menu_colour ^= $branded:^unidentified .*weapon.*(runed|glowing)
-menu_colour ^= $branded:^unidentified .*armour.*(runed|glowing|embroidered|shiny|dyed)
-
-# Wands, Jewellery, and Staves
-menu_colour ^=$branded:(wand|jewellery|magical staff)
-
-# Potions
-menu_colour ^= $normal:potion[s]? of agility
+# --- Potions ---
 menu_colour ^= $bad:potion[s]? of ambrosia
-menu_colour ^= $normal:potion[s]? of berserk rage
-menu_colour ^= $normal:potion[s]? of blood
-menu_colour ^= $normal:potion[s]? of brilliance
-menu_colour ^= $normal:potion[s]? of cancellation
-menu_colour ^= $good:potion[s]? of curing
 menu_colour ^= $bad:potion[s]? of degeneration
-menu_colour ^= $good:potion[s]? of experience
-menu_colour ^= $normal:potion[s]? of flight
-menu_colour ^= $normal:potion[s]? of haste
-menu_colour ^= $good:potion[s]? of heal wounds
-menu_colour ^= $good:potion[s]? of invisibility
-menu_colour ^= $normal:potion[s]? of lignification
-menu_colour ^= $normal:potion[s]? of magic
-menu_colour ^= $normal:potion[s]? of might
 menu_colour ^= $bad:potion[s]? of mutation
-menu_colour ^= $good:potion[s]? of resistance
 
-# Scrolls
-menu_colour ^= $good:scroll[s]? of acquirement
+# --- Scrolls ---
 menu_colour ^= $bad:scroll[s]? of amnesia
-menu_colour ^= $good:scroll[s]? of blinking
-menu_colour ^= $normal:scroll[s]? of brand weapon
-menu_colour ^= $good:scroll[s]? of enchant armour
-menu_colour ^= $good:scroll[s]? of enchant weapon
-menu_colour ^= $normal:scroll[s]? of fear
-menu_colour ^= $normal:scroll[s]? of fog
-menu_colour ^= $normal:scroll[s]? of holy word
-menu_colour ^= $good:scroll[s]? of identify
-menu_colour ^= $normal:scroll[s]? of immolation
-menu_colour ^= $normal:scroll[s]? of magic mapping
 menu_colour ^= $bad:scroll[s]? of noise
 menu_colour ^= $bad:scroll[s]? of random uselessness
-menu_colour ^= $good:scroll[s]? of remove curse
-menu_colour ^= $normal:scroll[s]? of silence
-menu_colour ^= $normal:scroll[s]? of summoning
-menu_colour ^= $good:scroll[s]? of teleportation
 menu_colour ^= $bad:scroll[s]? of torment
-menu_colour ^= $normal:scroll[s]? of vulnerability
 
-# Artefacts
+# --- Artefacts ---
 menu_colour ^= $artefact: artefact
 
-# Cursed Items
+# --- Cursed Items ---
 menu_colour ^= $bad: cursed
 
 # ======================

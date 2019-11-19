@@ -769,8 +769,9 @@ menu_colour ^= $bad:scroll[s]? of torment
 # --- Artefacts ---
 menu_colour ^= $artefact: artefact
 
-# --- Cursed Items ---
+# --- Cursed or Disenchanted Items ---
 menu_colour ^= $bad: cursed
+menu_colour ^= $bad: \-[1-9]
 
 # ======================
 # Essentials

@@ -731,19 +731,23 @@ item_slot += scroll of teleportation:t
 $normal := lightgrey
 $good := green
 $bad := lightred
-$unidentified := darkgrey
-$artefact:= lightcyan
+$faded := darkgrey
+$highlight:= lightcyan
 
 # --- Messages ---
-message_colour = $normal:.*
-message_colour ^= $good:you kill the
+message_colour =$faded:.*
+message_colour ^= $good:you (kill|destroy)
+message_colour ^= $good:You add the spell
+message_colour ^= $good:Increase \(S\)trength, \(I\)ntelligence, or \(D\)exterity
+message_colour ^= $good:skill increases
+message_colour ^= $good:You have reached level
 message_colour ^= $bad:LOW HITPOINT WARNING
 
 # --- Menus ---
 menu_colour =$normal:.*
 
 # --- Potions & Scrolls ---
-menu_colour ^= $unidentified:unidentified.*(potion|scroll)
+menu_colour ^= $faded:unidentified.*(potion|scroll)
 
 # --- Weapons & Armour ---
 menu_colour ^= $good:(weapon|armour).* of
@@ -767,7 +771,7 @@ menu_colour ^= $bad:scroll[s]? of random uselessness
 menu_colour ^= $bad:scroll[s]? of torment
 
 # --- Artefacts ---
-menu_colour ^= $artefact: artefact
+menu_colour ^= $highlight: artefact
 
 # --- Cursed or Disenchanted Items ---
 menu_colour ^= $bad: cursed

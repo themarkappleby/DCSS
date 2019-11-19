@@ -746,9 +746,10 @@ menu_colour =$normal:.*
 menu_colour ^= $unidentified:unidentified.*(potion|scroll)
 
 # --- Weapons & Armour ---
-menu_colour ^= $good: \+[1-9]
 menu_colour ^= $good:(weapon|armour).* of
-menu_colour ^= $normal:\+0 pair of gloves
+menu_colour ^= $normal:pair of gloves
+menu_colour ^= $normal:pair of boots
+menu_colour ^= $good: \+[1-9]
 menu_colour ^= $good:^unidentified .*(weapon|armour).*(runed|glowing|embroidered|shiny|dyed)
 
 # --- Wands, Jewellery, & Staves ---

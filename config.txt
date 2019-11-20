@@ -1,16 +1,105 @@
 # Ref: https://crawl.project357.org/rc-files/0.24/Ultraviolent4.rc
-#################
-# Lua Functions #
-#################
 
------------------------------------------------------------------------------------
--- Armour/Weapon autopickup by rwbarton, enhanced by HDA with fixes from Bloaxor --
------------------------------------------------------------------------------------
+##################################
+# General Settings
+##################################
+auto_butcher = true
+confirm_butcher = never
+easy_eat_chunks = true
+easy_confirm = all
+tile_web_mouse_control = false
+sort_menus = true
+
+
+##################################
+# Macros
+##################################
+macros += M ` x=v
+macros += M z Z*
+macros += M 1 za\{13}
+macros += M 2 zb\{13}
+macros += M 3 zc
+macros += M 4 zd
+
+
+##################################
+# Item Slots
+##################################
+item_slot += ration:e
+item_slot += potion of curing:c
+item_slot += potion of heal wounds:h
+item_slot += potion of resistance:r
+item_slot += scroll of blinking:b
+item_slot += scroll of identify:i
+item_slot += scroll of remove curse:r
+item_slot += scroll of teleportation:t
+
+
+##################################
+# UI Scale
+##################################
+tile_viewport_scale = 3.0
+tile_map_scale = 1.0
+tile_font_crt_size  = 24
+tile_font_msg_size  = 16
+tile_font_stat_size = 18
+msg_min_height = 5
+
+
+##################################
+# Autoinscriptions
+##################################
+ai := autoinscribe
+ai += (vampiric):!w
+ai += (bad|dangerous)_item.*potion:!q
+ai += (bad|dangerous)_item.*scroll:!r
+ai += of faith:!P
+ai += rod of:!a
+ai += lightning rod:!a
+ai += [^r]staff of (conj|energy|power|wizardry):!a
+ai += manual of:!d
+ai += dispersal:!f
+ai += tome of Destruction:!d
+ai += throwing net:!f
+ai += curare:!f
+ai += needle of (frenzy|paralysis|sleeping|confusion):!f
+ai += ( ration):!d
+ai += figurine:!*
+: if you.god() ~= "Lugonu" then
+ai += (distortion):!w
+:end
+
+
+##################################
+# Autopickup
+##################################
+ae := autopickup_exceptions
+
+# --- Artifacts ---
+ae += <artefact
+
+# --- Scrolls ---
+ae += >scroll of amnesia
+ae += >scroll of noise
+ae += >scroll of random uselessness
+ae += >scroll of torment
+
+# --- Potions ---
+ae += >potion of ambrosia
+ae += >potion of degeneration
+ae += >potion of mutation
+
+# --- Wands ---
+ae += >wand of random effects
+
+# --- Evocables & Thrown ---
+ae += <phantom mirror
+ae += <throwing net
+
+# --- Dynamic Autopickup ---
 {
 
 add_autopickup_func(function(it, name)
-
-  if name:find("throwing net") then return true end
 
   local class = it.class(true)
   local armour_slots = {cloak="Cloak", helmet="Helmet", gloves="Gloves", boots="Boots", body="Armour", shield="Shield"}
@@ -51,9 +140,504 @@ end)
 
 }
 
--------------------------
--- Dynamic Force Mores --
--------------------------
+
+##################################
+# Autotravel
+##################################
+explore_auto_rest = true
+explore_wall_bias = 1
+rest_wait_both = true
+explore_stop = items,greedy_items,greedy_pickup,greedy_pickup_gold
+explore_stop += greedy_visited_item_stack,stairs,shops,altars,gates
+explore_stop += greedy_sacrificeable
+auto_exclude += oklob,statue,roxanne,hyperactive
+
+stop := runrest_stop_message
+ignore := runrest_ignore_message
+
+# --- Annoyances ---
+: if you.god() == "Jiyva" then
+ignore += Jiyva gurgles merrily
+ignore += Jiyva appreciates your sacrifice
+ignore += Jiyva says: Divide and consume
+ignore += You hear.*splatter
+: end
+
+ignore ^= You feel.*sick
+ignore += disappears in a puff of smoke
+ignore += engulfed in a cloud of smoke
+ignore += standing in the rain
+ignore += engulfed in white fluffiness
+ignore += safely over a trap
+ignore += A.*toadstool withers and dies
+ignore += toadstools? grow
+ignore += You walk carefully through the
+ignore += chunks of flesh in your inventory.*rotted away
+runrest_ignore_poison  = 5:10
+runrest_ignore_monster += ^butterfly:1
+
+# --- Bad Things ---
+stop += You fall through a shaft
+stop += An alarm trap emits a blaring wail
+stop += (blundered into a|invokes the power of) Zot
+stop += A huge blade swings out and slices into you!
+stop += flesh start
+stop += (starving|feel devoid of blood)
+stop += wrath finds you
+stop += lose consciousness
+stop += watched by something
+stop += appears from out of your range of vision
+
+# --- Expiring Effects ---
+stop += You feel yourself slow down
+stop += less insulated
+stop += You are starting to lose your buoyancy
+stop += You lose control over your flight
+stop += Your hearing returns
+stop += Your transformation is almost over
+stop += back to life
+stop += uncertain
+stop += time is quickly running out
+stop += life is in your own hands
+stop += is no longer charmed
+stop += You start to feel a little slower
+stop += You are no longer
+
+: if you.race() == "Ghoul" then
+stop += smell.*(rott(ing|en)|decay)
+stop += something tasty in your inventory
+: end
+
+: if you.god() == "Xom" then
+stop += god:
+:else
+ignore += god:
+:end
+
+ignore += pray:
+ignore += talk:
+ignore += talk_visual:
+ignore += friend_spell:
+ignore += friend_enchant:
+ignore += friend_action:
+ignore += sound:
+
+
+##################################
+# Message & Menu Colours
+##################################
+$normal := lightgrey
+$good := green
+$bad := red
+$faded := darkgrey
+$highlight:= lightgreen
+
+# --- Messages ---
+message_colour =$faded:.*
+message_colour ^= $good:you (kill|destroy)
+message_colour ^= $good:You add the spell
+message_colour ^= $good:Increase \(S\)trength, \(I\)ntelligence, or \(D\)exterity
+message_colour ^= $good:skill increases
+message_colour ^= $good:You have reached level
+message_colour ^= $bad:LOW HITPOINT WARNING
+
+# --- Menus ---
+menu_colour =$normal:.*
+
+# --- Potions & Scrolls ---
+menu_colour ^= $faded:unidentified.*(potion|scroll)
+
+# --- Weapons & Armour ---
+menu_colour ^= $good:(weapon|armour).* of
+menu_colour ^= $normal:pair of gloves
+menu_colour ^= $normal:pair of boots
+menu_colour ^= $good: \+[1-9]
+menu_colour ^= $good:^unidentified .*(weapon|armour).*(runed|glowing|embroidered|shiny|dyed)
+
+# --- Wands, Jewellery, & Staves ---
+menu_colour ^=$good:(wand|jewellery|magical staff)
+
+# --- Potions ---
+menu_colour ^= $bad:potion[s]? of ambrosia
+menu_colour ^= $bad:potion[s]? of degeneration
+menu_colour ^= $bad:potion[s]? of mutation
+
+# --- Scrolls ---
+menu_colour ^= $bad:scroll[s]? of amnesia
+menu_colour ^= $bad:scroll[s]? of noise
+menu_colour ^= $bad:scroll[s]? of random uselessness
+menu_colour ^= $bad:scroll[s]? of torment
+
+# --- Artefacts ---
+menu_colour ^= $highlight: artefact
+
+# --- Cursed or Disenchanted Items ---
+menu_colour ^= $bad: cursed
+menu_colour ^= $bad: \-[1-9]
+
+
+##################################
+# Mute Messages
+##################################
+msc := message_colour
+
+# Muted - unnecessary
+msc += mute:The (bush|fungus|plant) is engulfed
+msc += mute:The (bush|fungus|plant) is struck by lightning
+msc += mute:Cast which spell
+msc += mute:Use which ability
+msc += mute:Evoke which item
+msc += mute:Confirm with
+# msc += mute:(Casting|Aiming|Aim|Zapping)\:
+msc += mute:Throwing.*\:
+msc += mute:You can\'t see any susceptible monsters within range
+msc += mute:Press\: \? \- help, Shift\-Dir \- straight line, f \- you
+msc += mute:for a list of commands and other information
+msc += mute:Firing \(i
+msc += mute:Fire\/throw which item\?
+msc += mute:You swap places
+
+msc ^= mute:is lightly (damaged|wounded)
+msc ^= mute:is moderately (damaged|wounded)
+msc ^= mute:is heavily (damaged|wounded)
+msc ^= mute:is severely (damaged|wounded)
+msc ^= mute:is almost (dead|destroyed)
+
+msc += mute:Was it this warm in here before
+msc += mute:The flames dance
+msc += mute:Your shadow attacks
+msc += mute:Marking area around
+msc += mute:Placed new exclusion
+msc += mute:Reduced exclusion size to a single square
+msc += mute:Removed exclusion
+msc += mute:You can access your shopping list by pressing
+msc += mute:for starvation awaits
+msc += mute:As you enter the labyrinth
+msc += mute:previously moving walls settle noisily into place
+msc += mute:You offer a prayer to Elyvilon
+msc += mute:You offer a prayer to Nemelex Xobeh
+msc += mute:You offer a prayer to Okawaru
+msc += mute:You offer a prayer to Makhleb
+msc += mute:You offer a prayer to Lugonu
+msc += mute:Lugonu accepts your kill
+msc += mute:Okawaru is noncommittal
+msc += mute:Nemelex Xobeh is (noncommittal|pleased)
+msc += mute:The plant looks sick
+msc += mute:You start butchering
+msc += mute:You continue butchering
+msc += mute:This raw flesh tastes terrible
+
+: if string.find(you.god(), "Jiyva") then
+  msc += mute:You hear a.*slurping noise
+  msc += mute:You hear a.*squelching noise
+  msc += mute:You feel a little less hungry
+: end
+
+
+##################################
+# Force Mores
+##################################
+show_more = false
+flash_screen_message += You feel strangely unstable
+flash_screen_message += Strange energies course through your body
+
+more := force_more_message
+
+# --- Distortion ---
+more += Space warps horribly around you
+more += hits you.*distortion
+more += Space bends around you\.
+more += Your surroundings suddenly seem different.
+more += Its appearance distorts for a moment.
+
+# --- Ghost Moths & Antimagic ---
+more += watched by something
+more += You feel your power leaking
+
+# --- Torment & Holy Wrath ---
+more += You convulse
+
+# --- Dispel Breath ---
+more += dispelling energy hits you
+
+# --- Unseen Horrors ---
+more += It hits you!
+more += Something hits you
+more += Something. *misses you.
+
+# --- Abyss Prompts ---
+more += Found an abyssal rune
+more += Found a gateway leading out of the Abyss
+more += Found a gateway leading deeper into the Abyss
+
+# --- Necromutation ---
+more += Your transformation is almost over.
+more += You feel yourself coming back to life
+
+# --- Summon Greater Demon ---
+more += is no longer charmed
+
+# --- Announcements of Timed Portal Vaults ---
+more += interdimensional caravan
+more += distant snort
+more += roar of battle
+more += wave of frost
+more += hiss of flowing sand
+more += sound of rushing water
+more += oppressive heat about you
+more += crackle of arcane power
+more += Found a gateway leading out of the Abyss
+more += Found .* abyssal rune of Zot
+more += You feel a terrible weight on your shoulders
+more += .* resides here
+
+# --- Interrupts ---
+more += You don't.* that spell
+more += You miscast (Controlled Blink|Blink|Death's|Borg|Necromutation)
+more += You can't (read|drink|do) that
+more += That item cannot be evoked
+more += This wand has no charges
+more += You are held in a net
+more += You have disarmed
+more += You don't have any such object
+more += do not work when you're silenced
+more += You can't unwield
+more += enough magic points
+more += You feel your control is inadequate
+more += Something interferes with your magic
+more += You enter a teleport trap
+
+# --- Bad Things ---
+more += Your surroundings flicker
+more += You cannot teleport right now
+more += The writing blurs in front of your eyes
+more += You fall through a shaft
+more += A huge blade swings out and slices into you!
+more += (blundered into a|invokes the power of) Zot
+more += Ouch! That really hurt!
+more += dispelling energy hits you
+more += You convulse
+more += You are (blasted|electrocuted)
+more += You are.*confused
+more += flesh start
+more += (starving|devoid of blood)
+more += god:(sends|finds|silent|anger)
+more += You feel a surge of divine spite
+more += lose consciousness
+more += You are too injured to fight blindly
+more += calcifying dust hits
+more += Space warps horribly around you
+more += hits you.*distortion
+more += Space bends around you\.
+more += watched by something
+more += A sentinel's mark forms upon you
+more += Your limbs have turned to stone
+more += You are slowing down
+more += .*LOW HITPOINT WARNING.*
+more += warns you.*of distortion
+more += lethally poison
+more += space bends around your
+more += wielding.*of (distortion|chaos)
+more += You fall through a shaft
+
+# --- Hell Effects ---
+more += "You will not leave this place."
+more += "Die, mortal!"
+more += "We do not forgive those who trespass against us!"
+more += "Trespassers are not welcome here!"
+more += "You do not belong in this place!"
+more += "Leave now, before it is too late!"
+more += "We have you now!"
+more += You smell brimstone.
+more += Brimstone rains from above.
+more += You feel lost and a long, long way from home...
+more += You shiver with fear.
+more += You feel a terrible foreboding...
+more += Something frightening happens.
+more += You sense an ancient evil watching you...
+more += You suddenly feel all small and vulnerable.
+more += You sense a hostile presence.
+more += A gut-wrenching scream fills the air!
+more += You hear words spoken in a strange and terrible language...
+more += You hear diabolical laughter!
+
+# --- Expiring Effects ---
+more += You feel yourself slow down
+more += less insulated
+more += You are starting to lose your buoyancy
+more += You lose control over your flight
+more += Your hearing returns
+more += Your transformation is almost over
+more += You have a feeling this form
+more += You feel yourself come back to life
+more += uncertain
+more += time is quickly running out
+more += life is in your own hands
+more += is no longer charmed
+more += shroud falls apart
+more += You start to feel a little slower
+more += You flicker
+more += You feel less protected from missiles
+
+# --- Skill Breakpoints ---
+more += skill increases
+more += You have reached level
+more += Training target.*for.*reached!
+
+# --- Other ---
+more += You now have enough gold to buy
+more += You have finished your manual of
+more += Your scales start
+more += You feel monstrous
+more += zaps a wand
+more += carrying a wand
+more += is unaffected
+more += Jiyva alters your body
+
+# Any uniques and any pan lords - Note: doesn't seem to work
+more += (?-i:[A-Z]).* comes? into view
+
+# --- Uniques ---
+more += Agnes.*comes? into view.
+more += Aizul.*comes? into view.
+more += Antaeus.*comes? into view.
+more += Arachne.*comes? into view.
+more += Asmodeus.*comes? into view.
+more += Asterion.*comes? into view.
+more += Azrael.*comes? into view.
+more += Blork the orc.*comes? into view.
+more += Boris.*comes? into view.
+more += Cerebov.*comes? into view.
+more += Crazy Yiuf.*comes? into view.
+more += Dispater.*comes? into view.
+more += Dissolution.*comes? into view.
+more += Donald.*comes? into view.
+more += Dowan.*comes? into view.
+more += Duvessa.*comes? into view.
+more += Edmund.*comes? into view.
+more += Enchantress.*comes? into view.
+more += Ereshkigal.*comes? into view.
+more += Erica.*comes? into view.
+more += Erolcha.*comes? into view.
+more += Eustachio.*comes? into view.
+more += Fannar.*comes? into view.
+more += Frances.*comes? into view.
+more += Francis.*comes? into view.
+more += Frederick.*comes? into view.
+more += Gastronok.*comes? into view.
+more += Geryon.*comes? into view.
+more += Gloorx Vloq.*comes? into view.
+more += Grinder.*comes? into view.
+more += Grum.*comes? into view.
+more += Harold.*comes? into view.
+more += Ignacio.*comes? into view.
+more += Ijyb.*comes? into view.
+more += Ilsuiw.*comes? into view.
+more += Jorgrun.*comes? into view.
+more += Jory.*comes? into view.
+more += Jessica.*comes? into view.
+more += Joseph.*comes? into view.
+more += Josephine.*comes? into view.
+more += Jozef.*comes? into view.
+more += Khufu.*comes? into view.
+more += Kirke.*comes? into view.
+more += Lamia.*comes? into view.
+more += Lom Lobon.*comes? into view.
+more += Louise.*comes? into view.
+more += Mara.*comes? into view.
+more += Margery.*comes? into view.
+more += Maud.*comes? into view.
+more += Maurice.*comes? into view.
+more += Menkaure.*comes? into view.
+more += Mennas.*comes? into view.
+more += Mnoleg.*comes? into view.
+more += Murray.*comes? into view.
+more += Natasha.*comes? into view.
+more += Nergalle.*comes? into view.
+more += Nessos.*comes? into view.
+more += Nikola.*comes? into view.
+more += Norris.*comes? into view.
+more += Pikel.*comes? into view.
+more += Polyphemus.*comes? into view.
+more += Prince Ribbit.*comes? into view.
+more += Psyche.*comes? into view.
+more += Purgy.*comes? into view.
+more += Robin.*comes? into view.
+more += Roxanne.*comes? into view.
+more += Rupert.*comes? into view.
+more += Saint Roka.*comes? into view.
+more += Sigmund.*comes? into view.
+more += Snorg.*comes? into view.
+more += Sojobo.*comes? into view.
+more += Sonja.*comes? into view.
+more += Terence.*comes? into view.
+more += The Lernaean hydra.*comes? into view.
+more += The royal jelly.*comes? into view.
+more += The Serpent of Hell.*comes? into view.
+more += Tiamat.*comes? into view.
+more += Urug.*comes? into view.
+more += Vashnia.*comes? into view.
+more += Wiglaf.*comes? into view.
+more += Xtahua.*comes? into view.
+
+# --- Other Dangerous Enemies ---
+more += 27-headed.*comes? into view.
+more += .*player ghost.* comes? into view
+more += .*Ancient Lich.*comes? into view.
+more += .*Orbs? of Fire.*comes? into view.
+more += .*Fiend.*comes? into view.
+more += .*Hellion.*comes? into view.
+more += .*Tormentor.*comes? into view.
+more += .*Hell Sentinel.*comes? into view.
+more += .*Executioner.*comes? into view.
+more += .*Neqoxec.*comes? into view.
+more += .*Cacodemon.*comes? into view.
+more += .*Shining Eye.*comes? into view.
+more += .*Greater Mummy.*comes? into view.
+more += .*Mummy Priest.*comes? into view.
+more += .*Curse Toe.*comes? into view.
+more += .*Curse Skull.*comes? into view.
+more += .*('s|s') ghost.*comes? into view.
+more += .*shrike.*comes? into view.
+more += .*wretched star.*comes? into view
+more += .*lurking horror.*comes? into view
+more += .*Juggernaut.*comes? into view.
+more += .*Iron Giant.*comes? into view.
+more += .*Tzitzimimeh.*comes? into view.
+more += .*Tzitzimitl.*comes? into view.
+more += minotaur.*into view
+more += *guardian serpent.*comes? into view.
+more += .*vault sentinel.*comes? into view.
+more += .*vault warden.*comes? into view.
+more += .*ironbrand convoker.*comes? into view.
+
+# --- Paralysis Enemies ---
+more += .*Floating Eye.*comes? into view.
+more += .*Lich.*comes? into view.
+more += .*Ogre Mage.*comes? into view.
+more += .*a Wizard.*comes? into view.
+more += .*orc sorcerer.*comes? into view.
+more += .*sphinx.*comes? into view.
+more += .*Great orb of eyes.*comes? into view.
+more += .*Vampire knight.*comes? into view.
+
+# --- Dancing Weapons ---
+more += Your.*falls from the air.
+
+# --- Gods ---
+more += you are ready to make a new sacrifice
+more += mollified
+more += wrath finds you
+more += sends forces
+more += sends monsters
+more += Vehumet offers
+
+# --- Xom ---
+: if you.god() == "Xom" then
+more += god:
+: end
+
+# --- Dynamic Force Mores ---
 {
 
 last_turn = you.turns()
@@ -176,640 +760,34 @@ init_force_mores()
 
 }
 
-##################
-# Ready Function #
-##################
 
+##################################
+# Skills Menu
+##################################
+default_manual_training = true
+default_show_all_skills = true
 {
 
 local need_skills_opened = true
 
-function ready()
-
-  force_mores()
-
--- Skill menu at game start by rwbarton
+function skills_menu_at_start()
   if you.turns() == 0 and need_skills_opened then
     need_skills_opened = false
     crawl.sendkeys("m")
   end
-
 end
 
 }
 
-##############
-# Autopickup #
-##############
 
-# autopickup = $?!:"/%}|\
+##################################
+# Ready Function
+##################################
+{
 
-ae := autopickup_exceptions
+function ready()
+  force_mores()
+  skills_menu_at_start()
+end
 
-# autopickup artifacts
-ae += <artefact
-
-ae ^= <scroll.*immolation.
-ae ^= <scroll.*vulnerability.
-ae += >scroll of amnesia
-ae += >scroll of holy word
-
-ae ^= <potion.*lignification.
-
-ae += >wand of random effects
-# ae += >wand of paralysis
-# ae += >wand of lightning
-# ae += >wand of confusion
-# ae += >wand of digging
-# ae += >wand of disintegration
-# ae += >wand of polymorph
-# ae += >wand of flame
-# ae += >wand of enslavement
-
-ae += <phantom mirror
-
-ae += >ring of stealth
-ae += >ring of positive energy
-ae += >ring of fire
-ae += >ring of ice
-ae += >ring of magical power
-ae += >ring of strength
-ae += >ring of intelligence
-ae += >ring of dexterity
-ae += >ring of wizardry
-
-#########
-# Notes #
-#########
-
-dump_item_origins = all
-dump_message_count = 50
-dump_book_spells = false
-
-##########
-# Travel #
-##########
-
-explore_stop = items,greedy_items,greedy_pickup,greedy_pickup_gold
-explore_stop += greedy_visited_item_stack,stairs,shops,altars,gates
-explore_stop += greedy_sacrificeable
-auto_exclude += oklob,statue,roxanne,hyperactive
-
-stop := runrest_stop_message
-ignore := runrest_ignore_message
-
-# Annoyances
-: if you.god() == "Jiyva" then
-ignore += Jiyva gurgles merrily
-ignore += Jiyva appreciates your sacrifice
-ignore += Jiyva says: Divide and consume
-ignore += You hear.*splatter
-: end
-
-ignore ^= You feel.*sick
-ignore += disappears in a puff of smoke
-ignore += engulfed in a cloud of smoke
-ignore += standing in the rain
-ignore += engulfed in white fluffiness
-ignore += safely over a trap
-ignore += A.*toadstool withers and dies
-ignore += toadstools? grow
-ignore += You walk carefully through the
-ignore += chunks of flesh in your inventory.*rotted away
-runrest_ignore_poison  = 5:10
-runrest_ignore_monster += ^butterfly:1
-
-# Bad things
-stop += You fall through a shaft
-stop += An alarm trap emits a blaring wail
-stop += (blundered into a|invokes the power of) Zot
-stop += A huge blade swings out and slices into you!
-stop += flesh start
-stop += (starving|feel devoid of blood)
-stop += wrath finds you
-stop += lose consciousness
-stop += watched by something
-stop += appears from out of your range of vision
-
-# Expiring effects
-stop += You feel yourself slow down
-stop += less insulated
-stop += You are starting to lose your buoyancy
-stop += You lose control over your flight
-stop += Your hearing returns
-stop += Your transformation is almost over
-stop += back to life
-stop += uncertain
-stop += time is quickly running out
-stop += life is in your own hands
-stop += is no longer charmed
-stop += You start to feel a little slower
-stop += You are no longer
-
-: if you.race() == "Ghoul" then
-stop += smell.*(rott(ing|en)|decay)
-stop += something tasty in your inventory
-: end
-
-: if you.god() == "Xom" then
-stop += god:
-:else
-ignore += god:
-:end
-
-ignore += pray:
-ignore += talk:
-ignore += talk_visual:
-ignore += friend_spell:
-ignore += friend_enchant:
-ignore += friend_action:
-ignore += sound:
-
-###########
-# prompts #
-###########
-
-flash_screen_message += You feel strangely unstable
-flash_screen_message += Strange energies course through your body
-
-more := force_more_message
-
-# distortion
-more += Space warps horribly around you
-more += hits you.*distortion
-more += Space bends around you\.
-more += Your surroundings suddenly seem different.
-more += Its appearance distorts for a moment.
-
-# ghost moths/antimagic
-more += watched by something
-more += You feel your power leaking
-
-# torment/holy wrath
-more += You convulse
-
-# dispel breath
-more += dispelling energy hits you
-
-# early unseen horrors
-more += It hits you!
-more += Something hits you
-more += Something. *misses you.
-
-# more += You have reached level
-more += You fall through a shaft
-more += Training target.*for.*reached!
-more += You now have enough gold to buy
-
-# abyss convenience prompts
-more += Found an abyssal rune
-more += Found a gateway leading out of the Abyss
-more += Found a gateway leading deeper into the Abyss
-
-# necromutation
-more += Your transformation is almost over.
-more += You feel yourself coming back to life
-
-# summon greater demon
-more += is no longer charmed
-
-# Announcements of timed portal vaults:
-more += interdimensional caravan
-more += distant snort
-more += roar of battle
-more += wave of frost
-more += hiss of flowing sand
-more += sound of rushing water
-more += oppressive heat about you
-more += crackle of arcane power
-more += Found a gateway leading out of the Abyss
-more += Found .* abyssal rune of Zot
-more += You feel a terrible weight on your shoulders
-more += .* resides here
-
-# Interrupts
-more += You don't.* that spell
-more += You miscast (Controlled Blink|Blink|Death's|Borg|Necromutation)
-more += You can't (read|drink|do) that
-more += That item cannot be evoked
-more += This wand has no charges
-more += You are held in a net
-more += You have disarmed
-more += You don't have any such object
-more += do not work when you're silenced
-more += You can't unwield
-more += enough magic points
-more += You feel your control is inadequate
-more += Something interferes with your magic
-more += You enter a teleport trap
-
-# Bad things
-more += Your surroundings flicker
-more += You cannot teleport right now
-more += The writing blurs in front of your eyes
-more += You fall through a shaft
-more += A huge blade swings out and slices into you!
-more += (blundered into a|invokes the power of) Zot
-more += Ouch! That really hurt!
-more += dispelling energy hits you
-more += You convulse
-more += You are (blasted|electrocuted)
-more += You are.*confused
-more += flesh start
-more += (starving|devoid of blood)
-more += god:(sends|finds|silent|anger)
-more += You feel a surge of divine spite
-more += lose consciousness
-more += You are too injured to fight blindly
-more += calcifying dust hits
-more += Space warps horribly around you
-more += hits you.*distortion
-more += Space bends around you\.
-more += watched by something
-more += A sentinel's mark forms upon you
-more += Your limbs have turned to stone
-more += You are slowing down
-more += .*LOW HITPOINT WARNING.*
-more += warns you.*of distortion
-more += lethally poison
-more += space bends around your
-more += wielding.*of (distortion|chaos)
-
-# Gods
-more += you are ready to make a new sacrifice
-more += mollified
-more += wrath finds you
-more += sends forces
-more += sends monsters
-more += Vehumet offers
-
-# Hell effects
-# Re-enabled
-more += "You will not leave this place."
-more += "Die, mortal!"
-more += "We do not forgive those who trespass against us!"
-more += "Trespassers are not welcome here!"
-more += "You do not belong in this place!"
-more += "Leave now, before it is too late!"
-more += "We have you now!"
-more += You smell brimstone.
-more += Brimstone rains from above.
-more += You feel lost and a long, long way from home...
-more += You shiver with fear.
-more += You feel a terrible foreboding...
-more += Something frightening happens.
-more += You sense an ancient evil watching you...
-more += You suddenly feel all small and vulnerable.
-more += You sense a hostile presence.
-more += A gut-wrenching scream fills the air!
-more += You hear words spoken in a strange and terrible language...
-more += You hear diabolical laughter!
-
-# Expiring effects
-more += You feel yourself slow down
-more += less insulated
-more += You are starting to lose your buoyancy
-more += You lose control over your flight
-more += Your hearing returns
-more += Your transformation is almost over
-more += You have a feeling this form
-more += You feel yourself come back to life
-more += uncertain
-more += time is quickly running out
-more += life is in your own hands
-more += is no longer charmed
-more += shroud falls apart
-more += You start to feel a little slower
-more += You flicker
-more += You feel less protected from missiles
-
-# Skill breakpoints
-more += skill increases
-
-# Others
-# more += You have reached level
-more += You have finished your manual of
-more += Your scales start
-more += You feel monstrous
-more += zaps a wand
-more += carrying a wand
-more += is unaffected
-more += Jiyva alters your body
-
-# Any uniques and any pan lords - doesn't seem to work
-more += (?-i:[A-Z]).* comes? into view
-
-more += Agnes.*comes? into view.
-more += Aizul.*comes? into view.
-more += Antaeus.*comes? into view.
-more += Arachne.*comes? into view.
-more += Asmodeus.*comes? into view.
-more += Asterion.*comes? into view.
-more += Azrael.*comes? into view.
-more += Blork the orc.*comes? into view.
-more += Boris.*comes? into view.
-more += Cerebov.*comes? into view.
-more += Crazy Yiuf.*comes? into view.
-more += Dispater.*comes? into view.
-more += Dissolution.*comes? into view.
-more += Donald.*comes? into view.
-more += Dowan.*comes? into view.
-more += Duvessa.*comes? into view.
-more += Edmund.*comes? into view.
-more += Enchantress.*comes? into view.
-more += Ereshkigal.*comes? into view.
-more += Erica.*comes? into view.
-more += Erolcha.*comes? into view.
-more += Eustachio.*comes? into view.
-more += Fannar.*comes? into view.
-more += Frances.*comes? into view.
-more += Francis.*comes? into view.
-more += Frederick.*comes? into view.
-more += Gastronok.*comes? into view.
-more += Geryon.*comes? into view.
-more += Gloorx Vloq.*comes? into view.
-more += Grinder.*comes? into view.
-more += Grum.*comes? into view.
-more += Harold.*comes? into view.
-more += Ignacio.*comes? into view.
-more += Ijyb.*comes? into view.
-more += Ilsuiw.*comes? into view.
-more += Jorgrun.*comes? into view.
-more += Jory.*comes? into view.
-more += Jessica.*comes? into view.
-more += Joseph.*comes? into view.
-more += Josephine.*comes? into view.
-more += Jozef.*comes? into view.
-more += Khufu.*comes? into view.
-more += Kirke.*comes? into view.
-more += Lamia.*comes? into view.
-more += Lom Lobon.*comes? into view.
-more += Louise.*comes? into view.
-more += Mara.*comes? into view.
-more += Margery.*comes? into view.
-more += Maud.*comes? into view.
-more += Maurice.*comes? into view.
-more += Menkaure.*comes? into view.
-more += Mennas.*comes? into view.
-more += Mnoleg.*comes? into view.
-more += Murray.*comes? into view.
-more += Natasha.*comes? into view.
-more += Nergalle.*comes? into view.
-more += Nessos.*comes? into view.
-more += Nikola.*comes? into view.
-more += Norris.*comes? into view.
-more += Pikel.*comes? into view.
-more += Polyphemus.*comes? into view.
-more += Prince Ribbit.*comes? into view.
-more += Psyche.*comes? into view.
-more += Purgy.*comes? into view.
-more += Robin.*comes? into view.
-more += Roxanne.*comes? into view.
-more += Rupert.*comes? into view.
-more += Saint Roka.*comes? into view.
-more += Sigmund.*comes? into view.
-more += Snorg.*comes? into view.
-more += Sojobo.*comes? into view.
-more += Sonja.*comes? into view.
-more += Terence.*comes? into view.
-more += The Lernaean hydra.*comes? into view.
-more += The royal jelly.*comes? into view.
-more += The Serpent of Hell.*comes? into view.
-more += Tiamat.*comes? into view.
-more += Urug.*comes? into view.
-more += Vashnia.*comes? into view.
-more += Wiglaf.*comes? into view.
-more += Xtahua.*comes? into view.
-
-more += 27-headed.*comes? into view.
-more += .*player ghost.* comes? into view
-more += .*Ancient Lich.*comes? into view.
-more += .*Orbs? of Fire.*comes? into view.
-more += .*Fiend.*comes? into view.
-more += .*Hellion.*comes? into view.
-more += .*Tormentor.*comes? into view.
-more += .*Hell Sentinel.*comes? into view.
-more += .*Executioner.*comes? into view.
-more += .*Neqoxec.*comes? into view.
-more += .*Cacodemon.*comes? into view.
-more += .*Shining Eye.*comes? into view.
-more += .*Greater Mummy.*comes? into view.
-more += .*Mummy Priest.*comes? into view.
-more += .*Curse Toe.*comes? into view.
-more += .*Curse Skull.*comes? into view.
-more += .*('s|s') ghost.*comes? into view.
-more += .*shrike.*comes? into view.
-more += .*wretched star.*comes? into view
-more += .*lurking horror.*comes? into view
-more += .*Juggernaut.*comes? into view.
-more += .*Iron Giant.*comes? into view.
-more += .*Tzitzimimeh.*comes? into view.
-more += .*Tzitzimitl.*comes? into view.
-
-# Paralysis enemies
-more += .*Floating Eye.*comes? into view.
-more += .*Lich.*comes? into view.
-more += .*Ogre Mage.*comes? into view.
-more += .*a Wizard.*comes? into view.
-more += .*orc sorcerer.*comes? into view.
-more += .*sphinx.*comes? into view.
-more += .*Great orb of eyes.*comes? into view.
-more += .*Vampire knight.*comes? into view.
-
-# Other dangerous enemies
-more += minotaur.*into view
-more += *guardian serpent.*comes? into view.
-more += .*vault sentinel.*comes? into view.
-more += .*vault warden.*comes? into view.
-more += .*ironbrand convoker.*comes? into view.
-
-# Dancing weapon
-more += Your.*falls from the air.
-
-# Xom is scary
-: if you.god() == "Xom" then
-more += god:
-: end
-
-####################
-# Mute some messages #
-####################
-
-msc := message_colour
-
-# Muted - unnecessary
-msc += mute:The (bush|fungus|plant) is engulfed
-msc += mute:The (bush|fungus|plant) is struck by lightning
-msc += mute:Cast which spell
-msc += mute:Use which ability
-msc += mute:Evoke which item
-msc += mute:Confirm with
-# msc += mute:(Casting|Aiming|Aim|Zapping)\:
-msc += mute:Throwing.*\:
-msc += mute:You can\'t see any susceptible monsters within range
-msc += mute:Press\: \? \- help, Shift\-Dir \- straight line, f \- you
-msc += mute:for a list of commands and other information
-msc += mute:Firing \(i
-msc += mute:Fire\/throw which item\?
-msc += mute:You swap places
-
-msc ^= mute:is lightly (damaged|wounded)
-msc ^= mute:is moderately (damaged|wounded)
-msc ^= mute:is heavily (damaged|wounded)
-msc ^= mute:is severely (damaged|wounded)
-msc ^= mute:is almost (dead|destroyed)
-
-msc += mute:Was it this warm in here before
-msc += mute:The flames dance
-msc += mute:Your shadow attacks
-msc += mute:Marking area around
-msc += mute:Placed new exclusion
-msc += mute:Reduced exclusion size to a single square
-msc += mute:Removed exclusion
-msc += mute:You can access your shopping list by pressing
-msc += mute:for starvation awaits
-msc += mute:As you enter the labyrinth
-msc += mute:previously moving walls settle noisily into place
-msc += mute:You offer a prayer to Elyvilon
-msc += mute:You offer a prayer to Nemelex Xobeh
-msc += mute:You offer a prayer to Okawaru
-msc += mute:You offer a prayer to Makhleb
-msc += mute:You offer a prayer to Lugonu
-msc += mute:Lugonu accepts your kill
-msc += mute:Okawaru is noncommittal
-msc += mute:Nemelex Xobeh is (noncommittal|pleased)
-msc += mute:The plant looks sick
-msc += mute:You start butchering
-msc += mute:You continue butchering
-msc += mute:This raw flesh tastes terrible
-
-: if string.find(you.god(), "Jiyva") then
-  msc += mute:You hear a.*slurping noise
-  msc += mute:You hear a.*squelching noise
-  msc += mute:You feel a little less hungry
-: end
-
-# =======================
-# Autoinscriptions
-# =======================
-ai := autoinscribe
-
-ai += (vampiric):!w
-ai += (bad|dangerous)_item.*potion:!q
-ai += (bad|dangerous)_item.*scroll:!r
-ai += of faith:!P
-ai += rod of:!a
-ai += lightning rod:!a
-ai += [^r]staff of (conj|energy|power|wizardry):!a
-ai += manual of:!d
-ai += dispersal:!f
-ai += tome of Destruction:!d
-ai += throwing net:!f
-ai += curare:!f
-ai += needle of (frenzy|paralysis|sleeping|confusion):!f
-ai += ( ration):!d
-ai += figurine:!*
-
-: if you.god() ~= "Lugonu" then
-ai += (distortion):!w
-:end
-
-# =======================
-# Item Slots
-# =======================
-item_slot += ration:e
-item_slot += potion of curing:c
-item_slot += potion of heal wounds:h
-item_slot += scroll of blinking:b
-item_slot += scroll of identify:i
-item_slot += scroll of remove curse:r
-item_slot += scroll of teleportation:t
-
-# =======================
-# Message & Menus Colours
-# =======================
-$normal := lightgrey
-$good := green
-$bad := lightred
-$faded := darkgrey
-$highlight:= lightcyan
-
-# --- Messages ---
-message_colour =$faded:.*
-message_colour ^= $good:you (kill|destroy)
-message_colour ^= $good:You add the spell
-message_colour ^= $good:Increase \(S\)trength, \(I\)ntelligence, or \(D\)exterity
-message_colour ^= $good:skill increases
-message_colour ^= $good:You have reached level
-message_colour ^= $bad:LOW HITPOINT WARNING
-
-# --- Menus ---
-menu_colour =$normal:.*
-
-# --- Potions & Scrolls ---
-menu_colour ^= $faded:unidentified.*(potion|scroll)
-
-# --- Weapons & Armour ---
-menu_colour ^= $good:(weapon|armour).* of
-menu_colour ^= $normal:pair of gloves
-menu_colour ^= $normal:pair of boots
-menu_colour ^= $good: \+[1-9]
-menu_colour ^= $good:^unidentified .*(weapon|armour).*(runed|glowing|embroidered|shiny|dyed)
-
-# --- Wands, Jewellery, & Staves ---
-menu_colour ^=$good:(wand|jewellery|magical staff)
-
-# --- Potions ---
-menu_colour ^= $bad:potion[s]? of ambrosia
-menu_colour ^= $bad:potion[s]? of degeneration
-menu_colour ^= $bad:potion[s]? of mutation
-
-# --- Scrolls ---
-menu_colour ^= $bad:scroll[s]? of amnesia
-menu_colour ^= $bad:scroll[s]? of noise
-menu_colour ^= $bad:scroll[s]? of random uselessness
-menu_colour ^= $bad:scroll[s]? of torment
-
-# --- Artefacts ---
-menu_colour ^= $highlight: artefact
-
-# --- Cursed or Disenchanted Items ---
-menu_colour ^= $bad: cursed
-menu_colour ^= $bad: \-[1-9]
-
-# ======================
-# Essentials
-# ======================
-auto_butcher = true
-confirm_butcher = never
-easy_eat_chunks = true
-show_more = false
-easy_confirm = all
-default_manual_training = true
-default_show_all_skills = true
-tile_web_mouse_control = false
-explore_auto_rest = true
-explore_wall_bias = 1
-sort_menus = true
-rest_wait_both = true
-
-# ======================
-# UI Scale
-# ======================
-tile_viewport_scale = 3.0
-tile_map_scale = 1.0
-tile_font_crt_size  = 24
-tile_font_msg_size  = 16
-tile_font_stat_size = 18
-msg_min_height = 5
-
-# ======================
-# Macros
-# Enter = \{13}
-# ======================
-macros += M ` x=v
-macros += M z Z*
-macros += M 1 za\{13}
-macros += M 2 zb\{13}
-macros += M 3 zc
-macros += M 4 zd
+}

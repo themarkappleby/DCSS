@@ -1,5 +1,6 @@
 # Ref: https://crawl.project357.org/rc-files/0.24/Ultraviolent4.rc
 
+
 ##################################
 # General Settings
 ##################################
@@ -39,11 +40,11 @@ item_slot += scroll of teleportation:t
 # UI Scale
 ##################################
 tile_viewport_scale = 3.0
-tile_map_scale = 1.0
 tile_font_crt_size  = 24
-tile_font_msg_size  = 16
 tile_font_stat_size = 18
+tile_font_msg_size  = 18
 msg_min_height = 5
+tile_map_scale = 1.0
 
 
 ##################################
@@ -74,27 +75,17 @@ ai += (distortion):!w
 # Autopickup
 ##################################
 ae := autopickup_exceptions
-
-# --- Artifacts ---
 ae += <artefact
-
-# --- Scrolls ---
+ae += <phantom mirror
+ae += <throwing net
 ae += >scroll of amnesia
 ae += >scroll of noise
 ae += >scroll of random uselessness
 ae += >scroll of torment
-
-# --- Potions ---
 ae += >potion of ambrosia
 ae += >potion of degeneration
 ae += >potion of mutation
-
-# --- Wands ---
 ae += >wand of random effects
-
-# --- Evocables & Thrown ---
-ae += <phantom mirror
-ae += <throwing net
 
 # --- Dynamic Autopickup ---
 {

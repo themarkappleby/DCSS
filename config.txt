@@ -73,7 +73,7 @@ ai += (distortion):!w
 # --- Armour ---
 ai += robe:AC+2
 ai += animal skin:AC+2
-ai += leather armour:AC+3
+ai += ^((?!troll).)*leather armour:AC+3
 ai += troll leather armour:AC+4, Regen
 ai += ring mail:AC+5
 ai += steam dragon scales:AC+5, rSteam
@@ -84,7 +84,7 @@ ai += chain mail:AC+8
 ai += fire dragon scales:AC+8, rF++ rC-
 ai += quicksilver dragon scales:AC+9, MR+
 ai += ice dragon scales:AC+9, rC++ rF-
-ai += plate armour:AC+10
+ai += ^((?!crystal).)*plate armour:AC+10
 ai += pearl dragon scales:AC+10, rN+
 ai += shadow dragon scales:AC+10, Stealth++++
 ai += storm dragon scales:AC+10, rElec
@@ -93,7 +93,7 @@ ai += crystal plate armour:AC+14
 
 # --- Shields ---
 ai += buckler:SH+3
-ai += shield:SH+8
+ai += ^((?!large).)*shield:SH+8
 ai += large shield:SH+13
 
 # --- Short Blades ---
@@ -120,10 +120,10 @@ ai += battleaxe:Dmg+15
 ai += executioner\'s axe:Dmg+18
 
 # --- Maces & Flails ---
-ai += whip:Dmg+6
-ai += club:Dmg+5
-ai += mace:Dmg+8
-ai += flail:Dmg+10
+ai += ^((?!demon).)*whip:Dmg+6
+ai += ^((?!giant).)*club:Dmg+5
+ai += ^((?!great).)*mace:Dmg+8
+ai += ^((?!dire).)*flail:Dmg+10
 ai += morningstar:Dmg+13
 ai += demon whip:Dmg+11
 ai += sacred scourge:Dmg+12
@@ -135,7 +135,7 @@ ai += giant spiked club:Dmg+22
 
 # --- Polearms ---
 ai += spear:Dmg+6
-ai += trident:Dmg+9
+ai += ^((?!demon).)*trident:Dmg+9
 ai += halberd:Dmg+13
 ai += scythe:Dmg+14
 ai += demon trident:Dmg+12
@@ -144,7 +144,7 @@ ai += glaive:Dmg+15
 ai += bardiche:Dmg+18
 
 # --- Staves ---
-ai += staff:Dmg+5
+ai += \sstaff:Dmg+5
 ai += quarterstaff:Dmg+10
 ai += lajatang:Dmg+16
 

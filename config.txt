@@ -71,91 +71,91 @@ ai += (distortion):!w
 :end
 
 # --- Armour ---
-ai += robe:AC+2
-ai += animal skin:AC+2
-ai += ^((?!troll).)*leather armour:AC+3
-ai += troll leather armour:AC+4, Regen
-ai += ring mail:AC+5
-ai += steam dragon scales:AC+5, rSteam
-ai += scale mail:AC+6
-ai += acid dragon scales:AC+6, rCorr
-ai += swamp dragon scales:AC+7, rPois
-ai += chain mail:AC+8
-ai += fire dragon scales:AC+8, rF++ rC-
-ai += quicksilver dragon scales:AC+9, MR+
-ai += ice dragon scales:AC+9, rC++ rF-
-ai += ^((?!crystal).)*plate armour:AC+10
-ai += pearl dragon scales:AC+10, rN+
-ai += shadow dragon scales:AC+10, Stealth++++
-ai += storm dragon scales:AC+10, rElec
-ai += gold dragon scales:AC+12, rF+ rC+ rPois
-ai += crystal plate armour:AC+14
+ai += robe: AC+2
+ai += animal skin: AC+2
+ai += ^((?!troll).)*leather armour: AC+3
+ai += troll leather armour: AC+4, Regen
+ai += ring mail: AC+5
+ai += steam dragon scales: AC+5, rSteam
+ai += scale mail: AC+6
+ai += acid dragon scales: AC+6, rCorr
+ai += swamp dragon scales: AC+7, rPois
+ai += chain mail: AC+8
+ai += fire dragon scales: AC+8, rF++ rC-
+ai += quicksilver dragon scales: AC+9, MR+
+ai += ice dragon scales: AC+9, rC++ rF-
+ai += ^((?!crystal).)*plate armour: AC+10
+ai += pearl dragon scales: AC+10, rN+
+ai += shadow dragon scales: AC+10, Stealth++++
+ai += storm dragon scales: AC+10, rElec
+ai += gold dragon scales: AC+12, rF+ rC+ rPois
+ai += crystal plate armour: AC+14
 
 # --- Shields ---
-ai += buckler:SH+3
-ai += ^((?!large).)*shield:SH+8
-ai += large shield:SH+13
+ai += buckler: SH+3
+ai += ^((?!large).)*shield: SH+8
+ai += large shield: SH+13
 
 # --- Short Blades ---
-ai += dagger:Dmg+4
-ai += quick blade:Dmg+5
-ai += short sword:Dmg+6
-ai += rapier:Dmg+8
+ai += dagger: Dmg+4
+ai += quick blade: Dmg+5
+ai += short sword: Dmg+6
+ai += rapier: Dmg+8
 
 # --- Long Blades ---
-ai += falchion:Dmg+7
-ai += long sword:Dmg+9
-ai += scimitar:Dmg+11
-ai += demon blade:Dmg+12
-ai += eudemon blade:Dmg+13
-ai += double sword:Dmg+14
-ai += great sword:Dmg+15
-ai += triple sword:Dmg+17
+ai += falchion: Dmg+7
+ai += long sword: Dmg+9
+ai += scimitar: Dmg+11
+ai += demon blade: Dmg+12
+ai += eudemon blade: Dmg+13
+ai += double sword: Dmg+14
+ai += great sword: Dmg+15
+ai += triple sword: Dmg+17
 
 # --- Axes ---
-ai += hand axe:Dmg+7
-ai += war axe:Dmg+11
-ai += broad axe:Dmg+13
-ai += battleaxe:Dmg+15
-ai += executioner\'s axe:Dmg+18
+ai += hand axe: Dmg+7
+ai += war axe: Dmg+11
+ai += broad axe: Dmg+13
+ai += battleaxe: Dmg+15
+ai += executioner\'s axe: Dmg+18
 
 # --- Maces & Flails ---
-ai += ^((?!demon).)*whip:Dmg+6
-ai += ^((?!giant).)*club:Dmg+5
-ai += ^((?!great).)*mace:Dmg+8
-ai += ^((?!dire).)*flail:Dmg+10
-ai += morningstar:Dmg+13
-ai += demon whip:Dmg+11
-ai += sacred scourge:Dmg+12
-ai += dire flail:Dmg+13
-ai += eveningstar:Dmg+15
-ai += great mace:Dmg+17
-ai += giant club:Dmg+20
-ai += giant spiked club:Dmg+22
+ai += ^((?!demon).)*whip: Dmg+6
+ai += ^((?!giant).)*club: Dmg+5
+ai += ^((?!great).)*mace: Dmg+8
+ai += ^((?!dire).)*flail: Dmg+10
+ai += morningstar: Dmg+13
+ai += demon whip: Dmg+11
+ai += sacred scourge: Dmg+12
+ai += dire flail: Dmg+13
+ai += eveningstar: Dmg+15
+ai += great mace: Dmg+17
+ai += giant club: Dmg+20
+ai += giant spiked club: Dmg+22
 
 # --- Polearms ---
-ai += spear:Dmg+6
-ai += ^((?!demon).)*trident:Dmg+9
-ai += halberd:Dmg+13
-ai += scythe:Dmg+14
-ai += demon trident:Dmg+12
-ai += trishula:Dmg+13
-ai += glaive:Dmg+15
-ai += bardiche:Dmg+18
+ai += spear: Dmg+6
+ai += ^((?!demon).)*trident: Dmg+9
+ai += halberd: Dmg+13
+ai += scythe: Dmg+14
+ai += demon trident: Dmg+12
+ai += trishula: Dmg+13
+ai += glaive: Dmg+15
+ai += bardiche: Dmg+18
 
 # --- Staves ---
-ai += \sstaff:Dmg+5
-ai += quarterstaff:Dmg+10
-ai += lajatang:Dmg+16
+ai += \sstaff: Dmg+5
+ai += quarterstaff: Dmg+10
+ai += lajatang: Dmg+16
 
 # --- Ranged ---
-ai += hunting sling:Dmg+5
-ai += fustibalus:Dmg+8
-ai += shortbow:Dmg+9
-ai += hand crossbow:Dmg+12
-ai += longbow:Dmg+15
-ai += arbalest:Dmg+18
-ai += triple crossbow:Dmg+22
+ai += hunting sling: Dmg+5
+ai += fustibalus: Dmg+8
+ai += shortbow: Dmg+9
+ai += hand crossbow: Dmg+12
+ai += longbow: Dmg+15
+ai += arbalest: Dmg+18
+ai += triple crossbow: Dmg+22 
 
 
 ##################################
